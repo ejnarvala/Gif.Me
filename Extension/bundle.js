@@ -27882,7 +27882,7 @@ function decrypt(privateKey, message){
 document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('encoded_gif_div').style.display = 'none';
 
-    // chrome.storage.sync.set({"public_key":""}, function(){
+    // chrome.storage.sync.set({"KPrabs106":"-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxef5EbkKokVLJIMaveQfFDlSDL+KiN90OYD7nR3bmX/bfuq/L8HSkgJ4l3ppohbVxhDM9ddal5qCzR/A3PUrS5235+jUYEOg7nA+gq5qT+LP4sD6YyLgtatDLRaKvcwnn5Lsor5knCS/5KZDVQNWpHtsCJnJjXKmcKtNPZCoe/APhihwro8LwYBdHOvxiwSRvY3Vy+XpjfEKL+C8dsdIo1WeMyDiIZhPSp8ghdxIYWVmV/ikQUXy/h4xq/yzaHPmBGvocX8YJbqj1WgW7teYkBDp6KB094XIIo6b5vdlfqP8bm+ILK/sxLCm+AHadP5i4013UeRzyo1ILycc3fpBNwIDAQAB-----END PUBLIC KEY-----"}, function(){
     //     if(chrome.runtime.error){
     //         console.log("Runtime Error.");
     //     }
@@ -27890,6 +27890,9 @@ document.addEventListener('DOMContentLoaded', function(){
     //         console.log("key reset");
     //     }
     // });
+    // chrome.storage.sync.get("KPrabs106", function(items){
+    //     console.log(items["KPrabs106"]);
+    // })
     // chrome.storage.sync.set({"private_key":""}, function(){
     //     if(chrome.runtime.error){
     //         console.log("Runtime Error.");
@@ -27934,26 +27937,38 @@ document.addEventListener('DOMContentLoaded', function(){
                 // var encryptedMsg = encrypt(to_public_key, document.getElementById('msg_gif_url').value);
                 console.log(items.public_key);
                 // var encryptedMsg = encrypt(items.public_key, document.getElementById('msg').value);
-                var encryptedMsg = document.getElementById('msg');
                 $.ajax({
                     url: "http://hackmit.eastus.cloudapp.azure.com/users",
                     type: "get",
                     crossDomain: true,
-                    data:{
-                        gifurl: document.getElementById('msg_gif_url').value,
-                        message: encryptedMsg
-                    },
+                        data :{
+                            gifurl: document.getElementById('msg_gif_url').value,
+                            message: document.getElementById('msg').value
+                        },
                     success: function(response){
+                        console.log(response);
                         document.getElementById('encoded_gif_url').innerHTML = response;
                         document.getElementById('encoded_gif_div').style.display = 'block';
-                    },
-                    error: function (xhr, ajaxOptions, thrownError){
-                        alert(xhr.status);
-                        alert(thrownError);
                     }
                 });
             });
         });
+        var data = JSON.stringify({"gifurl" : document.getElementById('msg'), "message":document.getElementById('msg_gif_url').value});
+        
+        // $.ajax({
+        //     url: "http://hackmit.eastus.cloudapp.azure.com/users",
+        //     type: "get",
+        //     crossDomain: true,
+        //     data :{
+        //         gifurl: document.getElementById('msg_gif_url').value,
+        //         message: document.getElementById('msg').value
+        //     },
+        //     success: function(response){
+        //         console.log(response);
+        //         document.getElementById('encoded_gif_url').innerHTML = response;
+        //         document.getElementById('encoded_gif_div').style.display = 'block';
+        //     }
+        // });
         return false;
     });
     $("#form-first").submit(function(event){

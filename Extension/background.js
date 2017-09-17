@@ -15,7 +15,7 @@ function Decrypt(info, tab){
             type: "get",
             crossDomain: true,
             data:{
-                gifurl: gif_url,
+                gifurl: gif_url
             },
             success: function(response){
                 alert("Decrypted: ", message);
