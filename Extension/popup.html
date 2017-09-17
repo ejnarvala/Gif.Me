@@ -11,7 +11,6 @@
             }
         </style>
     </head>
-    <br>
     <body>
         <div id="first_time_div" class="container">
             <form action="submit">
@@ -29,20 +28,29 @@
         <div id="normal_div" class="container">
             <div style="text-align: center; padding-top: 10px;">
                 <div class="col-12">
-                    <a id="user_gif"><img style="max-width: 100px;" src="user_gif.gif" alt=""></a>
+                    <label>Your GIF Key</label>
+                    <br>
+                    <a id="user_gif_a"><img id="user_gif" style="max-width: 100px;" src="https://media.giphy.com/media/Otu4kaNHJgrqo/giphy.gif" alt=""></a>
                 </div>
+                <small id="gif_url"></small>
             </div>
-                <form>
-                        <div class="form-group">
-                            <label for="gif_url">GIF URL</label>
-                            <input class="form-control" id="gif_url" aria-describedby="gif url" placeholder="Enter GIF URL">
-                        </div>
-                        <div class="form-group">
-                            <label for="Message">Message</label>
-                            <input class="form-control" id="msg" aria-describedby="Message" placeholder="Enter Message to Encrypt">
-                        </div>
-                        <button class="btn btn-primary btn-block" id="encrypt">Encrypt</button>
-                    </form>
+            <small style="color: red" id="error"></small>
+            <form>  
+                <div class="form-group">
+                    <label for="msg_gif_url">GIF URL</label>
+                    <input class="form-control" id="msg_gif_url" aria-describedby="gif url" placeholder="Enter GIF URL">
+                </div>
+                <div class="form-group">
+                    <label for="msg">Message</label>
+                    <input class="form-control" id="msg" aria-describedby="Message" placeholder="Enter Message to Encrypt">
+                </div>
+                <button class="btn btn-primary btn-block" id="encrypt">Encrypt</button>
+            </form>
+            <div id="encoded_gif_div">
+                <label>Encoded GIF Link</label>
+                <br>
+                <small id="encoded_gif_url"></small>
+            </div>
         </div>
         <br>
     </body>

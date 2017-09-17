@@ -1,17 +1,24 @@
 {
     "manifest_version": 2,
-    "name": "Gif Encryption",
+    "name": "GifMe",
     "version": "0.1",
     "description": "This extension encrypts messages into gifs to send through Facebook Messenger.",
     "content_scripts": [
         {
           "matches": ["https://www.messenger.com/*"],
-          "js": ["content.js", "popup.js"]
+          "js": ["content.js"]
         }
       ],
+    "permissions": [
+      "clipboardWrite",
+      "clipboardRead",
+      "contextMenus"
+    ],
+    "icons": {
+      "16": "icon.png"
+    },
     "background": {
-        "scripts": ["background.js"],
-        "persistent": false
+        "scripts": ["background.js"]
     },
     "browser_action":{
         "default_icon":"icon.png",
