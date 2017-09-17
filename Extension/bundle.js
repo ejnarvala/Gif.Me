@@ -23498,29 +23498,6 @@ exports.createContext = Script.createContext = function (context) {
 };
 
 },{"indexof":101}],159:[function(require,module,exports){
-var NodeRSA = require('node-rsa');
-
-function generateKey(){
-    var key = new NodeRSA({b: 2048});
-    key.generateKeyPair();
-
-    return {
-        private: key.exportKey("pkcs8-private"),
-        public: key.exportKey("pkcs8-public")
-    };
-}
-
-function encrypt(publicKey, message){
-    var key = new NodeRSA(publicKey);
-    return key.encrypt(message);
-}
-
-function decrypt(privateKey, message){
-    var key = new NodeRSA(privateKey);
-    return key.decrypt(message);
-}
-
-},{"node-rsa":166}],160:[function(require,module,exports){
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 
@@ -23535,7 +23512,7 @@ module.exports = {
 
 };
 
-},{}],161:[function(require,module,exports){
+},{}],160:[function(require,module,exports){
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 var errors = require('./errors');
@@ -23564,7 +23541,7 @@ for (var e in errors) {
     module.exports[e] = errors[e];
 }
 
-},{"./errors":160,"./reader":162,"./types":163,"./writer":164}],162:[function(require,module,exports){
+},{"./errors":159,"./reader":161,"./types":162,"./writer":163}],161:[function(require,module,exports){
 (function (Buffer){
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
@@ -23829,7 +23806,7 @@ Reader.prototype._readTag = function(tag) {
 module.exports = Reader;
 
 }).call(this,require("buffer").Buffer)
-},{"./errors":160,"./types":163,"assert":15,"buffer":47}],163:[function(require,module,exports){
+},{"./errors":159,"./types":162,"assert":15,"buffer":47}],162:[function(require,module,exports){
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 
@@ -23867,7 +23844,7 @@ module.exports = {
   Context: 128
 };
 
-},{}],164:[function(require,module,exports){
+},{}],163:[function(require,module,exports){
 (function (Buffer){
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
@@ -24187,7 +24164,7 @@ Writer.prototype._ensure = function(len) {
 module.exports = Writer;
 
 }).call(this,require("buffer").Buffer)
-},{"./errors":160,"./types":163,"assert":15,"buffer":47}],165:[function(require,module,exports){
+},{"./errors":159,"./types":162,"assert":15,"buffer":47}],164:[function(require,module,exports){
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 // If you have no idea what ASN.1 or BER is, see this:
@@ -24209,7 +24186,7 @@ module.exports = {
 
 };
 
-},{"./ber/index":161}],166:[function(require,module,exports){
+},{"./ber/index":160}],165:[function(require,module,exports){
 (function (Buffer){
 /*!
  * RSA library for Node.js
@@ -24611,7 +24588,7 @@ module.exports = (function () {
 })();
 
 }).call(this,require("buffer").Buffer)
-},{"./formats/formats.js":172,"./libs/rsa.js":176,"./schemes/schemes.js":180,"./utils":181,"asn1":165,"buffer":47,"constants":49,"crypto":57}],167:[function(require,module,exports){
+},{"./formats/formats.js":171,"./libs/rsa.js":175,"./schemes/schemes.js":179,"./utils":180,"asn1":164,"buffer":47,"constants":49,"crypto":57}],166:[function(require,module,exports){
 var crypt = require('crypto');
 
 module.exports = {
@@ -24629,7 +24606,7 @@ module.exports = {
         return engine(keyPair, options);
     }
 };
-},{"./io.js":168,"./js.js":169,"./node12.js":170,"crypto":57}],168:[function(require,module,exports){
+},{"./io.js":167,"./js.js":168,"./node12.js":169,"crypto":57}],167:[function(require,module,exports){
 var crypto = require('crypto');
 var constants = require('constants');
 var schemes = require('../schemes/schemes.js');
@@ -24700,7 +24677,7 @@ module.exports = function (keyPair, options) {
         }
     };
 };
-},{"../schemes/schemes.js":180,"constants":49,"crypto":57}],169:[function(require,module,exports){
+},{"../schemes/schemes.js":179,"constants":49,"crypto":57}],168:[function(require,module,exports){
 var BigInteger = require('../libs/jsbn.js');
 var schemes = require('../schemes/schemes.js');
 
@@ -24735,7 +24712,7 @@ module.exports = function (keyPair, options) {
         }
     };
 };
-},{"../libs/jsbn.js":175,"../schemes/schemes.js":180}],170:[function(require,module,exports){
+},{"../libs/jsbn.js":174,"../schemes/schemes.js":179}],169:[function(require,module,exports){
 var crypto = require('crypto');
 var constants = require('constants');
 var schemes = require('../schemes/schemes.js');
@@ -24792,7 +24769,7 @@ module.exports = function (keyPair, options) {
         }
     };
 };
-},{"../schemes/schemes.js":180,"./js.js":169,"constants":49,"crypto":57}],171:[function(require,module,exports){
+},{"../schemes/schemes.js":179,"./js.js":168,"constants":49,"crypto":57}],170:[function(require,module,exports){
 var _ = require('../utils')._;
 var utils = require('../utils');
 
@@ -24865,7 +24842,7 @@ module.exports = {
     }
 };
 
-},{"../utils":181}],172:[function(require,module,exports){
+},{"../utils":180}],171:[function(require,module,exports){
 var _ = require('../utils')._;
 
 function formatParse(format) {
@@ -24962,7 +24939,7 @@ module.exports = {
         }
     }
 };
-},{"../utils":181,"./components":171,"./pkcs1":173,"./pkcs8":174}],173:[function(require,module,exports){
+},{"../utils":180,"./components":170,"./pkcs1":172,"./pkcs8":173}],172:[function(require,module,exports){
 (function (Buffer){
 var ber = require('asn1').Ber;
 var _ = require('../utils')._;
@@ -25108,7 +25085,7 @@ module.exports = {
     }
 };
 }).call(this,require("buffer").Buffer)
-},{"../utils":181,"asn1":165,"buffer":47}],174:[function(require,module,exports){
+},{"../utils":180,"asn1":164,"buffer":47}],173:[function(require,module,exports){
 (function (Buffer){
 var ber = require('asn1').Ber;
 var _ = require('../utils')._;
@@ -25294,7 +25271,7 @@ module.exports = {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"../utils":181,"asn1":165,"buffer":47}],175:[function(require,module,exports){
+},{"../utils":180,"asn1":164,"buffer":47}],174:[function(require,module,exports){
 (function (Buffer){
 /*
  * Basic JavaScript BN library - subset useful for RSA encryption.
@@ -26837,7 +26814,7 @@ BigInteger.prototype.square = bnSquare;
 
 module.exports = BigInteger;
 }).call(this,require("buffer").Buffer)
-},{"../utils":181,"buffer":47,"crypto":57}],176:[function(require,module,exports){
+},{"../utils":180,"buffer":47,"crypto":57}],175:[function(require,module,exports){
 (function (Buffer){
 /*
  * RSA Encryption / Decryption with PKCS1 v2 Padding.
@@ -27157,7 +27134,7 @@ module.exports.Key = (function () {
 
 
 }).call(this,require("buffer").Buffer)
-},{"../encryptEngines/encryptEngines.js":167,"../schemes/schemes.js":180,"../utils":181,"../utils.js":181,"./jsbn.js":175,"buffer":47,"crypto":57}],177:[function(require,module,exports){
+},{"../encryptEngines/encryptEngines.js":166,"../schemes/schemes.js":179,"../utils":180,"../utils.js":180,"./jsbn.js":174,"buffer":47,"crypto":57}],176:[function(require,module,exports){
 (function (Buffer){
 /**
  * PKCS_OAEP signature scheme
@@ -27341,7 +27318,7 @@ module.exports.makeScheme = function (key, options) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"../libs/jsbn":175,"buffer":47,"crypto":57}],178:[function(require,module,exports){
+},{"../libs/jsbn":174,"buffer":47,"crypto":57}],177:[function(require,module,exports){
 (function (Buffer){
 /**
  * PKCS1 padding and signature scheme
@@ -27577,7 +27554,7 @@ module.exports.makeScheme = function (key, options) {
 
 
 }).call(this,require("buffer").Buffer)
-},{"../libs/jsbn":175,"buffer":47,"constants":49,"crypto":57}],179:[function(require,module,exports){
+},{"../libs/jsbn":174,"buffer":47,"constants":49,"crypto":57}],178:[function(require,module,exports){
 (function (Buffer){
 /**
  * PSS signature scheme
@@ -27764,7 +27741,7 @@ module.exports.makeScheme = function (key, options) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"../libs/jsbn":175,"./schemes":180,"buffer":47,"crypto":57}],180:[function(require,module,exports){
+},{"../libs/jsbn":174,"./schemes":179,"buffer":47,"crypto":57}],179:[function(require,module,exports){
 module.exports = {
     pkcs1: require('./pkcs1'),
     pkcs1_oaep: require('./oaep'),
@@ -27788,7 +27765,7 @@ module.exports = {
         return module.exports[scheme] && module.exports[scheme].isSignature;
     }
 };
-},{"./oaep":177,"./pkcs1":178,"./pss":179}],181:[function(require,module,exports){
+},{"./oaep":176,"./pkcs1":177,"./pss":178}],180:[function(require,module,exports){
 (function (process){
 /*
  * Utils functions
@@ -27878,4 +27855,106 @@ module.exports._ = {
     }
 };
 }).call(this,require('_process'))
-},{"_process":121,"crypto":57}]},{},[159]);
+},{"_process":121,"crypto":57}],181:[function(require,module,exports){
+var NodeRSA = require('node-rsa');
+
+function generateKey(){
+    var key = new NodeRSA({b: 2048});
+    key.generateKeyPair();
+
+    return {
+        private: key.exportKey("pkcs8-private"),
+        public: key.exportKey("pkcs8-public")
+    };
+}
+
+function encrypt(publicKey, message){
+    var key = new NodeRSA(publicKey);
+    return key.encrypt(message);
+}
+
+function decrypt(privateKey, message){
+    var key = new NodeRSA(privateKey);
+    return key.decrypt(message);
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+    //check config file, if nothing configured, show initial setup, if configured, show normal UI
+    document.getElementById('encoded_gif_div').style.display = 'none';
+
+
+    // chrome.storage.sync.set({"public_key":""}, function(){
+    //     if(chrome.runtime.error){
+    //         console.log("Runtime Error.");
+    //     }
+    //     else{
+    //     }
+    // });
+    // chrome.storage.sync.set({"private_key":"2"}, function(){
+    //     if(chrome.runtime.error){
+    //         console.log("Runtime Error.");
+    //     }
+    //     else{
+    //     }
+    // });
+    // chrome.storage.sync.set({"gif_key_url":"https://media.giphy.com/media/VVi4ameHu5RGE/giphy.gif"}, function(){
+    //     if(chrome.runtime.error){
+    //         console.log("Runtime Error.");
+    //     }
+    //     else{
+    //     }
+    // });
+    chrome.storage.sync.get(["public_key","private_key", "gif_key_url"], function(items){
+        console.log(items.private_key, items.public_key);
+        if(items.public_key == "" || items.public_key == undefined || items.private_key == "" || items.private_key == undefined){
+            document.getElementById('normal_div').style.display = 'none';            
+        } else{
+            document.getElementById('first_time_div').style.display = 'none';
+            document.getElementById('gif_url').innerHTML = items.gif_key_url; //set url to the source of gif
+            document.getElementById('user_gif').src = items.gif_key_url;
+        }
+    });
+
+    $("#form-normal").submit(function(event){
+        event.preventDefault();
+        console.log("submit");
+        if(document.getElementById('msg_gif_url').value == "" || document.getElementById('msg').value == ""){
+            document.getElementById('error').innerHTML = "Please Enter a GIF URL/Message.";
+        }
+
+
+        document.getElementById('encoded_gif_url').innerHTML = "Recieved URL";
+        document.getElementById('encoded_gif_div').style.display = 'initial';
+        // $.post($(this).attr('action'), $(this).serialize(), function(response){
+        //     //on success, do something
+        // }, 'json');
+        return false;
+    });
+    $("#form-first").submit(function(event){
+        event.preventDefault();
+        console.log("submit first time");
+        if(document.getElementById('user_gif_url').value == ""){
+            document.getElementById('error1').innerHTML = "Please Enter a GIF URL";
+        }
+        //get gif link
+        var keys = generateKey();
+        console.log(keys);
+        chrome.storage.sync.set({"public_key": keys.public}, function(){
+            if(chrome.runtime.error){
+                console.log("Runtime Error.");
+            }
+        });
+        chrome.storage.sync.set({"private_key": keys.private}, function(){
+            if(chrome.runtime.error){
+                console.log("Runtime Error.");
+            }
+        });
+    })
+
+
+    //add event listener for when button is clicked
+    document.getElementById('encrypt').addEventListener('click', function(){
+        console.log("clicked");
+    });
+});
+},{"node-rsa":165}]},{},[181]);
