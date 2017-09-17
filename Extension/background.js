@@ -4,8 +4,20 @@ function Decrypt(info, tab){
 function AddKey(info, tab){
     var userID = info.pageUrl;
     userID = userID.substring(userID.search("messenger.com/t/") + 16);
-    var Public_key = "Test_Key";//ask server to return key
-    
+    var public_key = "Test_Key";//ask server to return key
+    var obj = {};
+    obj[userID] = public_key;
+    chrome.storage.sync.set(obj, function(){
+        if(chrome.runtime.error){
+            console.log("Runtime Error.");
+        }
+    });
+    //verify it's there
+    // chrome.storage.sync.get(userID, function(items){
+    //     if (!chrome.runtime.error){
+    //         console.log(items);
+    //     }
+    // });
 }
 chrome.contextMenus.create({
     title: "Decrypt GIF",
