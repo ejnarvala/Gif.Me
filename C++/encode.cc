@@ -3,7 +3,8 @@
 #include <string>
 
 int main(int argc, char* argv[]){
-    GifFileType* gif = DGifOpenFileName("giphy.gif");
+    int error;
+    GifFileType* gif = DGifOpenFileName(argv[2]);
 
     if (gif == NULL) {
         std::cout << "Failed to open .gif, return error with type " << std::endl;
@@ -19,13 +20,13 @@ int main(int argc, char* argv[]){
     GifColorType* colors = gif->SavedImages[1].ImageDesc.ColorMap->Colors;
     
     std::string message(argv[1]);
-    gif->SavedImages[0].ImageDesc.ColorMap->Colors[0].Red = (char) (message.size()%255);
-    gif->SavedImages[0].ImageDesc.ColorMap->Colors[1].Green = (char) (message.size()/255);
+    gif->SavedImages[1].ImageDesc.ColorMap->Colors[0].Red = (char) (message.size()%255);
+    gif->SavedImages[1].ImageDesc.ColorMap->Colors[1].Green = (char) (message.size()/255);
     for(int i = 0; i < message.size(); i++){
-        colors[i].Blue = message[i];
+        colors[i+2].Blue = message[i];
     }
 
-    GifFileType* gifOut = EGifOpenFileName("generated4.gif", error);
+    GifFileType* gifOut = EGifOpenFileName("generated5.gif", error);
     gifOut->SWidth = gif->SWidth;
     gifOut->SHeight = gif->SHeight;
     gifOut->SColorResolution = gif->SColorResolution;

@@ -2,8 +2,8 @@
 #include <iostream>
 #include <string>
 
-int main(){
-    GifFileType* gif2 = DGifOpenFileName("generated4.gif");
+int main(int argc, char* argv[]){
+    GifFileType* gif2 = DGifOpenFileName(argv[1]);
     
     if (gif2 == NULL) {
         std::cout << "Failed to open .gif, return error with type " << std::endl;
@@ -16,14 +16,14 @@ int main(){
         return false;
     }
     
-    int messageSize = gif2->SavedImages[0].ImageDesc.ColorMap->Colors[0].Red +
-                        gif2->SavedImages[0].ImageDesc.ColorMap->Colors[0].Green;
+    int messageSize = gif2->SavedImages[1].ImageDesc.ColorMap->Colors[0].Red +
+                        gif2->SavedImages[1].ImageDesc.ColorMap->Colors[1].Green*255;
     
     std::string message = "";
     for(int i = 0; i < messageSize; i++){
-        message += gif2->SavedImages[1].ImageDesc.ColorMap->Colors[i].Blue;
+        message += gif2->SavedImages[1].ImageDesc.ColorMap->Colors[i+2].Blue;
     }
     std::cout << message << std::endl;
-    
+
     return 0;
 }
