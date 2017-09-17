@@ -8,12 +8,25 @@
         <style>
             body{
                 min-width: 250px;
-                min-height: 260px;
             }
         </style>
     </head>
+    <br>
     <body>
-        <div class="container">
+        <div id="first_time_div" class="container">
+            <form action="submit">
+                <div class="form-group">
+                    <label for="user_give_url">Enter URL of GIF ID</label>
+                    <input class="form-control" id="user_gif_url" placeholder="Enter GIF URL to Make Key">
+                </div>
+                <button class="btn btn-primary btn-block" id="submit_user_url">Submit</button>                
+            </form>
+        </div>
+
+
+
+
+        <div id="normal_div" class="container">
             <div style="text-align: center; padding-top: 10px;">
                 <div class="col-12">
                     <a id="user_gif"><img style="max-width: 100px;" src="user_gif.gif" alt=""></a>
@@ -30,7 +43,7 @@
                         </div>
                         <button class="btn btn-primary btn-block" id="encrypt">Encrypt</button>
                     </form>
-
         </div>
+        <br>
     </body>
 </html>

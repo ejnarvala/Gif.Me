@@ -1,10 +1,12 @@
-var conf;
 document.addEventListener('DOMContentLoaded', function(){
     console.log("DOM Loaded");
-    conf = $.getJSON("config.json");
-    if (conf.responseJSON.private_key == "" || conf.responseJSON.public_key == ""){
-        
-    }
+    $.getJSON("config.json", function(data){
+        if (data.private_key == "" || data.public_key == ""){
+            document.getElementById('normal_div').style.display = 'none';
+        }else{
+            document.getElementById('first_time_div').style.display = 'none';   
+        }
+    });
     document.getElementById('encrypt').addEventListener('click', function(){
         console.log("clicked");
     });
