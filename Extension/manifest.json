@@ -6,7 +6,7 @@
     "content_scripts": [
         {
           "matches": ["https://www.messenger.com/*"],
-          "js": ["content.js"]
+          "js": ["bundle.js"]
         }
       ],
     "permissions": [
