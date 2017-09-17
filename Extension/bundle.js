@@ -15273,7 +15273,7 @@ module.exports={
         "spec": ">=6.0.0 <7.0.0",
         "type": "range"
       },
-      "C:\\Users\\prabh\\AppData\\Roaming\\npm\\node_modules\\browserify\\node_modules\\browserify-sign"
+      "C:\\Users\\ejnar\\AppData\\Roaming\\npm\\node_modules\\browserify\\node_modules\\browserify-sign"
     ]
   ],
   "_from": "elliptic@>=6.0.0 <7.0.0",
@@ -15308,7 +15308,7 @@ module.exports={
   "_shasum": "cac9af8762c85836187003c8dfe193e5e2eae5df",
   "_shrinkwrap": null,
   "_spec": "elliptic@^6.0.0",
-  "_where": "C:\\Users\\prabh\\AppData\\Roaming\\npm\\node_modules\\browserify\\node_modules\\browserify-sign",
+  "_where": "C:\\Users\\ejnar\\AppData\\Roaming\\npm\\node_modules\\browserify\\node_modules\\browserify-sign",
   "author": {
     "name": "Fedor Indutny",
     "email": "fedor@indutny.com"
@@ -27869,28 +27869,27 @@ function generateKey(){
 }
 
 function encrypt(publicKey, message){
-    var key = new NodeRSA(publicKey);
+    var key = new NodeRSA(publicKey, 'pkcs8-public');
     return key.encrypt(message);
 }
 
 function decrypt(privateKey, message){
-    var key = new NodeRSA(privateKey);
+    var key = new NodeRSA(privateKey, 'pkcs8-private');
     return key.decrypt(message);
 }
 
 document.addEventListener('DOMContentLoaded', function(){
-    //check config file, if nothing configured, show initial setup, if configured, show normal UI
     document.getElementById('encoded_gif_div').style.display = 'none';
-
 
     // chrome.storage.sync.set({"public_key":""}, function(){
     //     if(chrome.runtime.error){
     //         console.log("Runtime Error.");
     //     }
     //     else{
+    //         console.log("key reset");
     //     }
     // });
-    // chrome.storage.sync.set({"private_key":"2"}, function(){
+    // chrome.storage.sync.set({"private_key":""}, function(){
     //     if(chrome.runtime.error){
     //         console.log("Runtime Error.");
     //     }
@@ -27922,21 +27921,41 @@ document.addEventListener('DOMContentLoaded', function(){
             document.getElementById('error').innerHTML = "Please Enter a GIF URL/Message.";
         }
 
-
-        document.getElementById('encoded_gif_url').innerHTML = "Recieved URL";
-        document.getElementById('encoded_gif_div').style.display = 'initial';
-        // $.post($(this).attr('action'), $(this).serialize(), function(response){
-        //     //on success, do something
-        // }, 'json');
+        chrome.tabs.query({
+            'active': true,
+            'windowId': chrome.windows.WINDOW_ID_CURRENT
+        }, function (tabs) {
+            var current_url = tabs[0].url;
+            var userID = current_url.substring(current_url.search("messenger.com/t/") + 16);
+            // chrome.storage.sync.get(userID, function(items){
+            chrome.storage.sync.get("public_key", function(items){
+                // to_public_key = items[userID]
+                // var encryptedMsg = encrypt(to_public_key, document.getElementById('msg_gif_url').value);
+                console.log(public_key);
+                var encryptedMsg = encrypt(items.public_key, document.getElementById('msg_gif_url').value);
+                $.ajax({
+                    url: "http://hackmit.eastus.cloudapp.azure.com/users",
+                    type: "get",
+                    crossDomain: true,
+                    dataType: 'jsonp',
+                    data:{
+                        gifurl: document.getElementById('msg_gif_url').value,
+                        message: encryptedMsg
+                    },
+                    success: function(response){
+                        console.log(response);
+                    }
+                });
+            });
+        });
         return false;
     });
     $("#form-first").submit(function(event){
         event.preventDefault();
         console.log("submit first time");
-        if(document.getElementById('user_gif_url').value == ""){
+        if(document.getElementById('user_gif_url').value == ""){    
             document.getElementById('error1').innerHTML = "Please Enter a GIF URL";
         }
-        //get gif link
         var keys = generateKey();
         console.log(keys);
         chrome.storage.sync.set({"public_key": keys.public}, function(){
@@ -27949,12 +27968,26 @@ document.addEventListener('DOMContentLoaded', function(){
                 console.log("Runtime Error.");
             }
         });
+        $.ajax({
+            url: "http://hackmit.eastus.cloudapp.azure.com/users",
+            type: "get",
+            data:{
+                gifur: document.getElementById('user_gif_url'),
+                message: keys.public
+            },
+            success: function(response){
+                console.log(response);
+                console.log("response");
+                //set the gif_key_url to the returned gif url
+                // chrome.storage.sync.set({"gif_key_url": response.}, function(){
+                //     if(chrome.runtime.error){
+                //         console.log("Runtime Error.");
+                //     }
+                // });
+            }
+        });
     })
 
 
-    //add event listener for when button is clicked
-    document.getElementById('encrypt').addEventListener('click', function(){
-        console.log("clicked");
-    });
 });
 },{"node-rsa":165}]},{},[181]);

@@ -1,5 +1,18 @@
 function Decrypt(info, tab){
     console.log(info.linkUrl);
+    var gif_url = info.linkUrl.substring(info.linkUrl.search("hackmit.eastus")+ 10, info.linkUrl.search(".gif")+3);
+    // gif_url.replace(/2%F/g,"/")
+    $.ajax({
+        url: "http://hackmit.eastus.cloudapp.azure.com/",
+        type: "get",
+        data:{
+            gifurl: gif_url;
+        },
+        success: function(response){
+            console.log(response);
+            
+        }
+    });
 }
 function AddKey(info, tab){
     var userID = info.pageUrl;
