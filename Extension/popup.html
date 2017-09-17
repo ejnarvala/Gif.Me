@@ -10,12 +10,15 @@
                 min-width: 250px;
             }
         </style>
+
     </head>
     <body>
         <div id="first_time_div" class="container">
-            <form action="submit">
+            <form id="form-first">
                 <div class="form-group">
                     <label for="user_give_url">Enter URL of GIF ID</label>
+                    <br>
+                    <small style="color: red" id="error1"></small>                    
                     <input class="form-control" id="user_gif_url" placeholder="Enter GIF URL to Make Key">
                 </div>
                 <button class="btn btn-primary btn-block" id="submit_user_url">Submit</button>                
@@ -35,7 +38,7 @@
                 <small id="gif_url"></small>
             </div>
             <small style="color: red" id="error"></small>
-            <form>  
+            <form id="form-normal">  
                 <div class="form-group">
                     <label for="msg_gif_url">GIF URL</label>
                     <input class="form-control" id="msg_gif_url" aria-describedby="gif url" placeholder="Enter GIF URL">
