@@ -1,18 +1,34 @@
+
+function decrypt(privateKey, message){
+    var key = new NodeRSA(privateKey, 'pkcs8-private');
+    return key.decrypt(message);
+}
+
 function Decrypt(info, tab){
-    console.log(info.linkUrl);
-    var gif_url = info.linkUrl.substring(info.linkUrl.search("hackmit.eastus")+ 10, info.linkUrl.search(".gif")+3);
-    // gif_url.replace(/2%F/g,"/")
-    $.ajax({
-        url: "http://hackmit.eastus.cloudapp.azure.com/",
-        type: "get",
-        data:{
-            gifurl: gif_url;
-        },
-        success: function(response){
-            console.log(response);
-            
-        }
-    });
+    console.log(info);
+    var gif_url = info.selectionText;
+    var userID = info.pageUrl;
+    userID = userID.substring(userID.search("messenger.com/t/") + 16);
+    chrome.storage.sync.get(userID, function(items){
+        $.ajax({
+            url: "http://hackmit.eastus.cloudapp.azure.com/decode",
+            type: "get",
+            crossDomain: true,
+            data:{
+                gifurl: gif_url,
+            },
+            success: function(response){
+                alert("Decrypted: ", message);
+                // message = decrypt(items[userID], response.message);
+            },
+            error: function (xhr, ajaxOptions, thrownError){
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    })
+
+
 }
 function AddKey(info, tab){
     var userID = info.pageUrl;
@@ -34,7 +50,7 @@ function AddKey(info, tab){
 }
 chrome.contextMenus.create({
     title: "Decrypt GIF",
-    contexts: ["link", "image"],
+    contexts: ["link", "image", "selection"],
     onclick: Decrypt
 })
 chrome.contextMenus.create({

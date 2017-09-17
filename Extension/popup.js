@@ -12,6 +12,7 @@ function generateKey(){
 
 function encrypt(publicKey, message){
     var key = new NodeRSA(publicKey, 'pkcs8-public');
+    console.log(publicKey, key);
     return key.encrypt(message);
 }
 
@@ -73,19 +74,25 @@ document.addEventListener('DOMContentLoaded', function(){
             chrome.storage.sync.get("public_key", function(items){
                 // to_public_key = items[userID]
                 // var encryptedMsg = encrypt(to_public_key, document.getElementById('msg_gif_url').value);
-                console.log(public_key);
-                var encryptedMsg = encrypt(items.public_key, document.getElementById('msg_gif_url').value);
+                console.log(items.public_key);
+                // var encryptedMsg = encrypt(items.public_key, document.getElementById('msg').value);
+                var encryptedMsg = document.getElementById('msg');
                 $.ajax({
                     url: "http://hackmit.eastus.cloudapp.azure.com/users",
                     type: "get",
                     crossDomain: true,
-                    dataType: 'jsonp',
                     data:{
                         gifurl: document.getElementById('msg_gif_url').value,
                         message: encryptedMsg
                     },
                     success: function(response){
                         console.log(response);
+                        document.getElementById('encoded_gif_url').innerHTML = response;
+                        document.getElementById('encoded_gif_div').style.display = 'block';
+                    },
+                    error: function (xhr, ajaxOptions, thrownError){
+                        alert(xhr.status);
+                        alert(thrownError);
                     }
                 });
             });
@@ -104,17 +111,22 @@ document.addEventListener('DOMContentLoaded', function(){
             if(chrome.runtime.error){
                 console.log("Runtime Error.");
             }
+
+            chrome.storage.sync.set({"private_key": keys.private}, function(){
+                if(chrome.runtime.error){
+                    console.log("Runtime Error.");
+                }
+
+
+            });
+
         });
-        chrome.storage.sync.set({"private_key": keys.private}, function(){
-            if(chrome.runtime.error){
-                console.log("Runtime Error.");
-            }
-        });
+        
         $.ajax({
             url: "http://hackmit.eastus.cloudapp.azure.com/users",
             type: "get",
             data:{
-                gifur: document.getElementById('user_gif_url'),
+                gifurl: document.getElementById('user_gif_url'),
                 message: keys.public
             },
             success: function(response){
