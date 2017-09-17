@@ -18,8 +18,7 @@ function Decrypt(info, tab){
                 gifurl: gif_url
             },
             success: function(response){
-                alert("Decrypted: ", message);
-                // message = decrypt(items[userID], response.message);
+                alert("Decrypted: ", response);
             },
             error: function (xhr, ajaxOptions, thrownError){
                 alert(xhr.status);

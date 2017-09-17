@@ -27869,13 +27869,17 @@ function generateKey(){
 }
 
 function encrypt(publicKey, message){
-    var key = new NodeRSA(publicKey, 'pkcs8-public');
+    var key = new NodeRSA();
     console.log(publicKey, key);
+    
+    key.importKey(publicKey, 'pkcs8-public');
     return key.encrypt(message);
 }
 
 function decrypt(privateKey, message){
-    var key = new NodeRSA(privateKey, 'pkcs8-private');
+    var key = new NodeRSA();
+    console.log(privateKey);
+    key.importKey(privateKey, 'pkcs8-private');
     return key.decrypt(message);
 }
 
@@ -27932,9 +27936,9 @@ document.addEventListener('DOMContentLoaded', function(){
             var current_url = tabs[0].url;
             var userID = current_url.substring(current_url.search("messenger.com/t/") + 16);
             // chrome.storage.sync.get(userID, function(items){
-            chrome.storage.sync.get("public_key", function(items){
-                // to_public_key = items[userID]
-                // var encryptedMsg = encrypt(to_public_key, document.getElementById('msg_gif_url').value);
+            chrome.storage.sync.get("KPrabs106", function(items){
+                to_public_key = items["KPrabs106"];
+                // var encryptedMsg = encrypt(to_public_key, document.getElementById('msg').value);
                 console.log(items.public_key);
                 // var encryptedMsg = encrypt(items.public_key, document.getElementById('msg').value);
                 $.ajax({
@@ -27944,6 +27948,7 @@ document.addEventListener('DOMContentLoaded', function(){
                         data :{
                             gifurl: document.getElementById('msg_gif_url').value,
                             message: document.getElementById('msg').value
+                            // message: document.getElementById('msg').value
                         },
                     success: function(response){
                         console.log(response);
