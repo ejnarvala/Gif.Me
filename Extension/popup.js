@@ -1,5 +1,3 @@
-require('./utils.js');
-
 document.addEventListener('DOMContentLoaded', function(){
     //check config file, if nothing configured, show initial setup, if configured, show normal UI
     document.getElementById('encoded_gif_div').style.display = 'none';
