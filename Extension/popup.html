@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GifMe</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="popup.js"></script>                
+        <style>
+            body{
+                min-width: 250px;
+                min-height: 260px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div style="text-align: center; padding-top: 10px;">
+                <div class="col-12">
+                    <a id="user_gif"><img style="max-width: 100px;" src="user_gif.gif" alt=""></a>
+                </div>
+            </div>
+                <form>
+                        <div class="form-group">
+                            <label for="gif_url">GIF URL</label>
+                            <input class="form-control" id="gif_url" aria-describedby="gif url" placeholder="Enter GIF URL">
+                        </div>
+                        <div class="form-group">
+                            <label for="Message">Message</label>
+                            <input class="form-control" id="msg" aria-describedby="Message" placeholder="Enter Message to Encrypt">
+                        </div>
+                        <button class="btn btn-primary btn-block" id="encrypt">Encrypt</button>
+                    </form>
+
+        </div>
+    </body>
+</html>
