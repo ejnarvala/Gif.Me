@@ -27950,39 +27950,39 @@ document.addEventListener('DOMContentLoaded', function(){
     //sign up form
     $("#form-first").submit(function(event){
         event.preventDefault();
-        console.log("submit first time");
         if(document.getElementById('user_gif_url').value == ""){    
             document.getElementById('error1').innerHTML = "Please Enter a GIF URL";
-        }
-        var keys = generateKey();
-        //set public and private key upon creation    
-        chrome.storage.sync.set({"public_key": keys.public}, function(){
-            if(chrome.runtime.error){
-                console.log("Runtime Error.");
-            }
-            chrome.storage.sync.set({"private_key": keys.private}, function(){
+        } else{
+            var keys = generateKey();
+            //set public and private key upon creation    
+            chrome.storage.sync.set({"public_key": keys.public}, function(){
                 if(chrome.runtime.error){
                     console.log("Runtime Error.");
                 }
-            });
-        });
-        
-        $.ajax({
-            url: "http://hackmit.eastus.cloudapp.azure.com/users",
-            type: "get",
-            data:{
-                gifurl: document.getElementById('user_gif_url').value,
-                message: keys.public
-            },
-            success: function(response){
-                // set the gif_key_url to the returned gif url
-                chrome.storage.sync.set({"gif_key_url": response}, function(){
+                chrome.storage.sync.set({"private_key": keys.private}, function(){
                     if(chrome.runtime.error){
                         console.log("Runtime Error.");
                     }
                 });
-            }
-        });
+            });
+            
+            $.ajax({
+                url: "http://hackmit.eastus.cloudapp.azure.com/users",
+                type: "get",
+                data:{
+                    gifurl: document.getElementById('user_gif_url').value,
+                    message: keys.public
+                },
+                success: function(response){
+                    // set the gif_key_url to the returned gif url
+                    chrome.storage.sync.set({"gif_key_url": response}, function(){
+                        if(chrome.runtime.error){
+                            console.log("Runtime Error.");
+                        }
+                    });
+                }
+            });
+        }
     })
 });
 },{"node-rsa":165}]},{},[181]);
