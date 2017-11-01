@@ -2,6 +2,9 @@ CXXFLAGS = -c -g
 LDFLAGS  = -lgif
 CXX = g++
 
+all:
+	encode decode
+
 encode: encode.o
 	$(CXX) -o encode encode.o $(LDFLAGS)
 
@@ -13,9 +16,3 @@ decode: decode.o
 
 decode.o: decode.cc
 	$(CXX) $(CXXFLAGS) decode.cc
-
-generateGIF: generateGIF.o
-	$(CXX) -o generateGIF generateGIF.o $(LDFLAGS)
-
-generateGIF.o: generateGIF.cc
-	$(CXX) $(CXXFLAGS) generateGIF.cc
