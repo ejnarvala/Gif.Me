@@ -4,6 +4,10 @@
 
 int main(int argc, char* argv[]){
     int error;
+    if(argc != 3){
+        std::cout << "usage: ./encode [message] [path/to/gif]" << std::endl;
+        return false;
+    }
     GifFileType* gif = DGifOpenFileName(argv[2]);
 
     if (gif == NULL) {
@@ -26,7 +30,7 @@ int main(int argc, char* argv[]){
         colors[i+2].Blue = message[i];
     }
 
-    GifFileType* gifOut = EGifOpenFileName("generated5.gif", error);
+    GifFileType* gifOut = EGifOpenFileName(argv[2] + "encoded.gif", error);
     gifOut->SWidth = gif->SWidth;
     gifOut->SHeight = gif->SHeight;
     gifOut->SColorResolution = gif->SColorResolution;
