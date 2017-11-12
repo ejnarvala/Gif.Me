@@ -4,6 +4,10 @@
 
 int main(int argc, char* argv[]){
     GifFileType* gif2 = DGifOpenFileName(argv[1]);
+
+    if(argc != 2){
+        std::cout << "usage: ./decode [path/to/gif]" << std::endl;
+    }
     
     if (gif2 == NULL) {
         std::cout << "Failed to open .gif, return error with type " << std::endl;
